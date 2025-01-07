@@ -118,7 +118,7 @@ void send_metrics(const char *server_ip, int server_port, const char *client_nam
     }
 
     if (connect(metrics_socket, (struct sockaddr *)&server_address, sizeof(server_address)) < 0) {
-        perror("Coneccion fallida");
+        perror("Conexion fallida");
         close(metrics_socket);
         exit(EXIT_FAILURE);
     }

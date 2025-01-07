@@ -17,12 +17,12 @@
 //LOAD_THESHOLD para el envio de la alerta en caso de superar el valor en load_avg1
 #define LOAD_THRESHOLD 2.0
 
-const char *TWILIO_ACCOUNT_SID = "AC2b47f8ca808d3701725483c2a2e4086e";
-const char *TWILIO_AUTH_TOKEN = "9dfcb90d009fa4735b7e3e8dce30f5da";
-const char *TWILIO_PHONE_NUMBER = "+17755876995"; 
-const char *TO_PHONE_NUMBER = "+593987151215";    // MI numero de telefono
+const char *TWILIO_ACCOUNT_SID = "AC4d59b536db44e76d64a47e52d0518039";
+const char *TWILIO_AUTH_TOKEN = "bd821518d43c0b098fb8d2e38d89e4db";
+const char *TWILIO_PHONE_NUMBER = "+12293606532"; 
+const char *TO_PHONE_NUMBER = "+593987151215"; 
 
-//Mutex usado para 
+//Mutex usado para actualizar el dashboard
 pthread_mutex_t update_mutex = PTHREAD_MUTEX_INITIALIZER;
 
 typedef struct {
@@ -53,7 +53,7 @@ void send_twilio_alert(const char *metric, const char *client_name, int value) {
 
     curl = curl_easy_init();
     if (curl) {
-        curl_easy_setopt(curl, CURLOPT_URL, "https://api.twilio.com/2010-04-01/Accounts/AC2b47f8ca808d3701725483c2a2e4086e/Messages.json");
+        curl_easy_setopt(curl, CURLOPT_URL, "https://api.twilio.com/2010-04-01/Accounts/AC4d59b536db44e76d64a47e52d0518039/Messages.json");
         curl_easy_setopt(curl, CURLOPT_POSTFIELDS, postfields);
         curl_easy_setopt(curl, CURLOPT_USERNAME, TWILIO_ACCOUNT_SID);
         curl_easy_setopt(curl, CURLOPT_PASSWORD, TWILIO_AUTH_TOKEN);
@@ -215,7 +215,7 @@ int main(int argc, char *argv[]) {
 
     printf("Servidor escuchando en puerto %d con update interval %d segundos\n", PORT, update_interval);
 
-    // Start the dashboard updater thread
+    // Se inicia el thread para actualizar el dashboard
     pthread_t dashboard_thread;
     pthread_create(&dashboard_thread, NULL, dashboard_updater, NULL);
 
